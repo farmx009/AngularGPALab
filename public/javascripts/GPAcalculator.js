@@ -50,7 +50,7 @@ function GPAcalculatorCTRL ($scope) {
     $scope.GPAcalc = function () {
         var total = 0;
 
-        for(i=0; i<$scope.classes.length ;i++) {
+        for(var i=0; i<$scope.classes.length ;i++) {
             total = total +  $scope.gradeEquivalent[$scope.possibleGrades.indexOf($scope.classes[i].grade)] * $scope.classes[i].credits;
 
             console.log('classes.length: ' + $scope.classes.length);
