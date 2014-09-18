@@ -8,9 +8,21 @@ a {
   color: #00B7FF;
 }
 
-.done-true {
-    text-decoration: line-through;
-    color: grey;
+.unstyled {
+    list-style: none;
+}
+
+.red {
+    color: red;
+}
+
+.padded {
+    padding: 5px;
+}
+
+.centered {
+    margin-right: auto;
+    margin-left: auto;
 }
 
 .section {

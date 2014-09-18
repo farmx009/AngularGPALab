@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="todoApp">
+<html>
     <head lang="en">
     <meta charset="UTF-8">
         <title>Angular Lab</title>
@@ -10,34 +10,43 @@
         <script type="text/javascript" src="/libs/angular-bootstrap/ui-bootstrap-tpls.min.js" ></script>
         <script type="text/javascript" src="/javascripts/todo.js" ></script>
         <script type="text/javascript" src="/javascripts/kittens.js" ></script>
+        <script type="text/javascript" src="/javascripts/GPAcalculator.js"></script>
     </head>
     <body>
-        <h1>Angular</h1>
-        <h1><a href="kittens.html">Kittens</a></h1>
-
-        <div class="col-md-5 section">
-            <img src="images/throh.png">
-            <br />
-            <label>Name:</label>
-            <input type="text" ng-model="yourName" placeholder="Enter a name here">
-            <h1>Hello {{yourName}}!</h1>
+        <div class="container-fluid" ng-app="GPAcalculator" ng-controller="GPAcalculatorCTRL">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="container-fluid section">
+                        <h1>GPA calculator</h1>
+                        <ul class="unstyled">
+                            <li ng-repeat="class in classes">
+                                <span>Grade: {{class.grade}} Credits: {{class.credits}}</span>
+                                <a href="#" ng-click="deleteClass($index)" ><span class="glyphicon glyphicon-remove red"></span></a>
+                            </li>
+                        </ul>
+                        <form ng-submit="addClass()">
+                            <select ng-model="data.grade">
+                                <option ng-repeat="thing in possibleGrades" value="{{thing}}">{{thing}}</option>
+                            </select>
+                            <select ng-model="data.credits">
+                                <option ng-repeat="credit in possibleCredits" value="{{credit}}">{{credit}}</option>
+                            </select>
+                            <button type="submit">Add Class</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="container-fluid section">
+                        <h1>Your GPA:</h1>
+                        <hr>
+                        {{GPAcalc()}}
+                        <hr>
+                        <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+                    </div>
+                </div>
+                <!-- {{test()}} --> <!-- comment out to stop tests, might run a bunch of times and ruin everything. -->
+            </div>
         </div>
-
-        <div class="col-md-5 col-md-offset-1 section" ng-controller="TodoController">
-            <h2>Todo</h2>
-            <span>{{remaining()}} of {{todos.length}} remaining</span>
-            [ <a href="" ng-click="archive()">archive</a> ]
-            <ul class="unstyled">
-                <li ng-repeat="todo in todos">
-                    <input type="checkbox" ng-model="todo.done">
-                    <span class="done-{{todo.done}}">{{todo.text}}</span>
-                </li>
-            </ul>
-            <form ng-submit="addTodo()">
-                <input type="text" ng-model="todoText"  size="30"
-                       placeholder="add new todo here">
-                <input class="btn-primary" type="submit" value="add">
-            </form>
-        </div>
+        <a href="kittens.html">kittens</a>
     </body>
 </html>

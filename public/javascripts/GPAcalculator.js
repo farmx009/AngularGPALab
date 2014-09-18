@@ -4,21 +4,13 @@
 angular.module('GPAcalculator', ['ui.bootstrap']);
 function GPAcalculatorCTRL ($scope) {
     //Data for Classes including: data, classes, possibleGrades, possibleCredits
-    $scope.credits = 1;
-    $scope.data = {grade:'A',credits:$scope.credits};
+    $scope.data = {grade:'A',credits:1};
 
     $scope.classes = [
-        {grade: 'A', credits: 5},
-        {grade: 'B-', credits: 2}
     ];
 
-//    $scope.possibleGrades =[{letter:'A', number:4.0}, {letter:'A-', number:3.667},  {letter:'B+', number:3.333},
-//                            {letter:'B', number:3.0}, {letter:'B-', number:2.667}, {letter:'C+', number:2.333},
-//                            {letter:'C', number:2.0}, {letter:'C-', number:1.667}, {letter:'D', number:1.333},
-//                            {letter:'D-', number:1.0}, {letter:'F', number:0.0}];
     $scope.possibleGrades = ['A', 'A-', 'B+','B','B-','C+','C','C-','D','D-','F'];
-
-   $scope.gradeEquivalent = [4.0,3.667,3.333,3.0,2.667,2.333,2.0,1.667,1.333,1.0,0.0];
+    $scope.gradeEquivalent = [4.0,3.667,3.333,3.0,2.667,2.333,2.0,1.667,1.333,1.0,0.0];
     $scope.possibleCredits = [1,2,3,4,5];
 
     //Alert section including: alerts, addAlert, closeAlert
@@ -68,8 +60,72 @@ function GPAcalculatorCTRL ($scope) {
 //            console.log('gradeEquivalent: ' + $scope.gradeEquivalent[$scope.possibleGrades.indexOf($scope.classes[i].grade)]);
 //            console.log('classes[i].credits ' + $scope.classes[i].credits);
         }
-//        console.log('GPA calc ' + totalPoints);
-//        console.log('Total credits: ' + totalCredits);
-        return totalPoints / totalCredits;
+
+        if(totalCredits != 0){
+           // console.log('GPA calc ' + totalPoints);
+//          console.log('Total credits: ' + totalCredits);
+            return totalPoints / totalCredits;
+        } else {
+            return 'You need to have at least 1 credit of classes!';
+        }
     };
+
+
+        $scope.test = function () {
+            var failed = 0;
+            var passed = 0;
+            // Test classes empty by default
+            if($scope.classes.length != 0) {
+                failed++;
+                console.log('ERR: Classes not empty by default')
+            } else {passed++;}
+
+            // Test addClass with default values
+            $scope.addClass();
+            if($scope.classes.length != 1) {
+                failed++;
+                console.log('ERR: addClass did not add to Classes')
+            } else {passed++;}
+
+            // Test addClass with non default values
+            $scope.data.credits = 4;
+            $scope.data.grade = 'C';   // grade equiv. = 2.0
+            $scope.addClass();
+            if($scope.classes.length != 2) {
+                failed++;
+                console.log('ERR: addClass failed to add non default values');
+            } else {passed++;}
+
+            // Test GPAcalc with default and non default values.
+            if($scope.GPAcalc() != 12/5) {
+                failed++;
+                console.log('ERR: GPAcalc failed to achieve correct result');
+                console.log("expected: 12/5, got: " + $scope.GPAcalc());
+            } else {passed++;}
+
+            // Test deleteClass with first class
+            // This only tests that a class was deleted, not that a specific class was deleted.
+            $scope.deleteClass(0);
+            if($scope.classes.length != 1) {
+                failed++;
+                console.log('ERR: deleteClass failed to delete a class');
+            } else {passed++;}
+
+            // Test GPAcalc after deleteClass
+            if($scope.GPAcalc() != 2) {
+                failed++;
+                console.log('ERR: GPAcalc failed after deletion of a class');
+                console.log("expected: 2, got: " + $scope.GPAcalc());
+            } else {passed++;}
+
+            if(failed != 0) {
+                console.log('Tests Passed: ' + passed);
+                console.log('Tests Failed: ' + failed);
+            } else {
+                console.log('All ' + passed + ' tests passed!');
+            }
+
+            $scope.classes = [];
+
+        };
 }
