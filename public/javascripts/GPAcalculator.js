@@ -45,7 +45,7 @@ function GPAcalculatorCTRL ($scope) {
         else {
             console.log('creating new class, grade: ' + $scope.data.grade + ' credits: ' + $scope.data.credits);
             $scope.classes.push({grade: $scope.data.grade, credits: parseInt($scope.data.credits)});
-            console.log($scope.classes);
+            //console.log($scope.classes);
         }
         $scope.data = {grade:'A', credits: 1};
     };
@@ -61,15 +61,15 @@ function GPAcalculatorCTRL ($scope) {
         for(var i=0; i<$scope.classes.length ;i++) {
             totalPoints += $scope.gradeEquivalent[$scope.possibleGrades.indexOf($scope.classes[i].grade)] * $scope.classes[i].credits;
             totalCredits += $scope.classes[i].credits;
-            console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
-            console.log('classes.length: ' + $scope.classes.length);
-            console.log('classes ' + $scope.classes[i].grade);
-            console.log('Index of possibleGrades: ' + $scope.possibleGrades.indexOf($scope.classes[i].grade));
-            console.log('gradeEquivalent: ' + $scope.gradeEquivalent[$scope.possibleGrades.indexOf($scope.classes[i].grade)]);
-            console.log('classes[i].credits ' + $scope.classes[i].credits);
+//            console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
+//            console.log('classes.length: ' + $scope.classes.length);
+//            console.log('classes ' + $scope.classes[i].grade);
+//            console.log('Index of possibleGrades: ' + $scope.possibleGrades.indexOf($scope.classes[i].grade));
+//            console.log('gradeEquivalent: ' + $scope.gradeEquivalent[$scope.possibleGrades.indexOf($scope.classes[i].grade)]);
+//            console.log('classes[i].credits ' + $scope.classes[i].credits);
         }
-        console.log('GPA calc ' + totalPoints);
-        console.log('Total credits: ' + totalCredits);
+//        console.log('GPA calc ' + totalPoints);
+//        console.log('Total credits: ' + totalCredits);
         return totalPoints / totalCredits;
     };
 }
